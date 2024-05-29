@@ -2,21 +2,24 @@ FROM ubuntu:jammy
 
 RUN apt update
 RUN apt -y install build-essential \
-                    make \
-                    automake \
-                    git \
-                    wget \
-                    vim \
-                    ssh \
-                    rsync \
-                    fio \
-                    ffmpeg
+  make \
+  automake \
+  git \
+  wget \
+  vim \
+  ssh \
+  rsync \
+  fio \
+  ffmpeg \
+  wrk \
+  iperf \
+  apache2-utils
 
 ### Sysbench installation
 RUN apt -y install libtool pkg-config libaio-dev libmysqlclient-dev libssl-dev libpq-dev
 RUN git clone https://github.com/akopytov/sysbench.git sysbench
 
-WORKDIR sysbench
+WORKDIR /sysbench
 RUN ./autogen.sh
 RUN ./configure --with-mysql --with-pgsql
 RUN make -j
